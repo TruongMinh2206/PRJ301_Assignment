@@ -1,21 +1,5 @@
 
-create table Student(
-	[sid] int identity(1,1) not null constraint PK_Student primary key,
-	[member_code] varchar(150) not null,
-	[sname] nvarchar(150) not null,	
-	[image] nvarchar(150) not null,
-);
-create table Room(
-	[rid] int identity(1,1) not null constraint PK_Room primary key,
-	[rname] nvarchar(150) not null,
-);
 
-create table TimeSlot(
-	[tsid] int identity(1,1) not null constraint PK_TimeSlot primary key,
-	[tsname] varchar(150) not null,
-	[start_time] time not null,
-	[end_time] time not null,
-);
 create table Campus(
 	[cpid] int identity(1,1) not null constraint PK_Campus primary key,
 	[cpname] nvarchar(150) not null,
@@ -84,13 +68,13 @@ create table Lesson(
 	[tid] int not null constraint FK_Lesson_Term foreign key references Term([tid]),
 );
 
-create table AttendanceTaking(
-	[sid] int not null constraint FK_AttendanceTaking_Student foreign key references Student([sid]),
-	[lid] int not null constraint FK_AttendanceTaking_Lesson foreign key references Lesson([lid]),
+create table Attendance(
+	[sid] int not null constraint FK_Attendance_Student foreign key references Student([sid]),
+	[lid] int not null constraint FK_Attendance_Lesson foreign key references Lesson([lid]),
 	[status] bit not null,
 	[comment] nvarchar(150) not null,
 	[record_time] datetime not null,
-	constraint PK_AttendanceTaking primary key([sid], [lid]),
+	constraint PK_Attendance primary key([sid], [lid]),
 );
 
 create table Enroll(
