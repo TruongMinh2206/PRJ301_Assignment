@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container-table{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Single activity Attendance</h1>
+    <h3>Attendance for PRJ301 width lecture instructorName at slot 1 on Monday 03/01/2022, Spring2022, in Room DE-C201 at FU-HL</h3>
+    <div class="container-table">
+        <table border="2px"> 
+            <tr>
+                <th>NO</th>
+                <th>GROUP</th>
+                <th>CODE</th>
+                <th>NAME</th>
+                <th>IMAGE</th>
+                <th>STATUS</th>
+                <th>COMMENT</th>
+                <th>TAKER</th>
+                <th>RECORD TIME</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>SE1643</td>
+                <td>HE161668</td>
+                <td>Nguyễn Quang Vinh </td>
+                <td><img src="" alt=""></td>
+                <td>
+                    present <input type="radio" checked="checked" name="status1">
+                    absent <input type="radio" name="status1">
+                </td>
+                <td>
+                    <input type="text">
+                </td>
+                <td>instructor name</td>
+                <td>03/01/2022 8:50:00 AM</td>
+            </tr>
+            
+            <tr>
+                <td>2</td>
+                <td>SE1643</td>
+                <td>HE161666</td>
+                <td>Nguyễn Trường Minh</td>
+                <td><img src="" alt=""></td>
+                <td>
+                    present <input type="radio" checked="checked" name="status2">
+                    absent <input type="radio" name="status2">
+                </td>
+                <td>
+                    <input type="text">
+                </td>
+                <td>instructor name</td>
+                <td>03/01/2022 8:50:00 AM</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>SE1643</td>
+                <td>HE153604</td>
+                <td>Trần Ngọc Thắng</td>
+                <td><img src="" alt=""></td>
+                <td>
+                    present <input type="radio" checked="checked" name="status3">
+                    absent <input type="radio" name="status3">
+                </td>
+                <td>
+                    <input type="text">
+                </td>
+                <td>instructor name</td>
+                <td>03/01/2022 8:51:00 AM</td>
+            </tr>
+
+        </table>
+        <input type="submit" value="Save" style="margin-top: 10px;">
+    </div>
+</body>
+</html>

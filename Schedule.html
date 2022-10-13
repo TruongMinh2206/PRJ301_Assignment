@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .container-campus {
+            margin-top: 30px;
+        }
+        .container-instructor {
+            margin-top: 10px;
+        }
+        .container-table {
+            margin-left: 155px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-campus">
+        Campus: <select name="campus">
+            <option>FU-HL</option>
+            <option>FU-HCM</option>
+        </select> <br />
+    </div>
+    <div class="container-instructor">
+        Lecture: <input type="text" name="instructor" />
+        <input type="submit" value="View" /> </br>
+    </div>
+    <div class="container-table">
+        <table border="2px">
+            <thead>
+                <tr>
+                    <th rowspan="2">
+                        Year
+                        <select id="year" onchange="load2()">
+                            <option value="2022">2022</option>
+                            <option selected="selected" value="2023">2023</option>
+                        </select>
+                        <br />
+                        Week
+                        <select id="week" onchange="load3()">
+                        </select>
+                    </th>
+                    <th>MON</th>
+                    <th>TUE</th>
+                    <th>WED</th>
+                    <th>THU</th>
+                    <th>FRI</th>
+                    <th>SAT</th>
+                    <th>SUN</th>
+
+                </tr>
+                <tr>
+                    <th id="mon"></th>
+                    <th id="tue"></th>
+                    <th id="wed"></th>
+                    <th id="thu"></th>
+                    <th id="fri"></th>
+                    <th id="sat"></th>
+                    <th id="sun"></th>
+                </tr>
+            </thead>
+
+            <tr>
+                <td>Slot 1</td>
+                <td>
+                    
+                    <!-- <a href="Attendance.html">SE1643 <br>-PRJ301 <br> at DE-C205 <br> (not yet)</a> -->
+                    
+                    
+                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Slot 2</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Slot 3</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Slot 4</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Slot 5</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Slot 6</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Slot 7</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Slot 8</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+        </table>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    function getDay1_OfWeek(weekNumber, year) {
+        let tmp = year == 2022 ? 0 : 1
+        return new Date(null, 0, tmp + 3 + ((weekNumber - 1) * 7));
+    }
+    function getDay2_OfWeek(weekNumber, year) {
+        let tmp = year == 2022 ? 0 : 1
+        return new Date(null, 0, tmp + 4 + ((weekNumber - 1) * 7));
+    }
+    function getDay3_OfWeek(weekNumber, year) {
+        let tmp = year == 2022 ? 0 : 1
+        return new Date(null, 0, tmp + 5 + ((weekNumber - 1) * 7));
+    }
+    function getDay4_OfWeek(weekNumber, year) {
+        let tmp = year == 2022 ? 0 : 1
+        return new Date(null, 0, tmp + 6 + ((weekNumber - 1) * 7));
+    }
+    function getDay5_OfWeek(weekNumber, year) {
+        let tmp = year == 2022 ? 0 : 1
+        return new Date(null, 0, tmp + 7 + ((weekNumber - 1) * 7));
+    }
+    function getDay6_OfWeek(weekNumber, year) {
+        let tmp = year == 2022 ? 0 : 1
+        return new Date(null, 0, tmp + 8 + ((weekNumber - 1) * 7));
+    }
+    function getDay7_OfWeek(weekNumber, year) {
+        let tmp = year == '2022' ? 0 : 1
+        return new Date(null, 0, tmp + 9 + ((weekNumber - 1) * 7));
+    }
+    function load() {
+        $('#week').empty();
+        let year = $('#year option:selected').val();
+        let select;
+        for (let i = 1; i <= 52; i++) {
+            var dayStart = getDay1_OfWeek(i, year).getDate() + "/" + ((getDay1_OfWeek(i, year).getMonth() * 1) + 1);
+            var dayEnd = getDay7_OfWeek(i, year).getDate() + "/" + ((getDay7_OfWeek(i, year).getMonth() * 1) + 1);
+            select += `<option> ${dayStart} to ${dayEnd}</option>`
+        }
+        $('#week').append(select);
+
+    }
+    load();
+
+    function load2() {
+        $('#week').empty();
+        let year = $('#year option:selected').val();
+        let select;
+        for (let i = 1; i <= 52; i++) {
+            var dayStart = getDay1_OfWeek(i, year).getDate() + "/" + ((getDay1_OfWeek(i, year).getMonth() * 1) + 1);
+            var dayEnd = getDay7_OfWeek(i, year).getDate() + "/" + ((getDay7_OfWeek(i, year).getMonth() * 1) + 1);
+            select += `<option value="${i}"> ${dayStart} to ${dayEnd}</option>`
+        }
+        $('#week').append(select);
+
+    }
+    load2();
+
+    function load3() {
+        $('#mon').empty();
+        $('#tue').empty();
+        $('#wed').empty();
+        $('#thu').empty();
+        $('#fri').empty();
+        $('#sat').empty();
+        $('#sun').empty();
+        let year = $('#year option:selected').val();
+        var getWeek = 1;
+
+        var mond = getDay1_OfWeek(getWeek, year).getDate() + "/" + ((getDay1_OfWeek(getWeek, year).getMonth() * 1) + 1);
+        $("#mon").replaceWith(`<th> ${mond} </th>`);
+        var tued = getDay2_OfWeek(getWeek, year).getDate() + "/" + ((getDay2_OfWeek(getWeek, year).getMonth() * 1) + 1);
+        $('#tue').replaceWith(`<th> ${tued} </th>`);
+        var wedd = getDay3_OfWeek(getWeek, year).getDate() + "/" + ((getDay3_OfWeek(getWeek, year).getMonth() * 1) + 1);
+        $('#wed').replaceWith(`<th> ${wedd} </th>`);
+        var thud = getDay4_OfWeek(getWeek, year).getDate() + "/" + ((getDay4_OfWeek(getWeek, year).getMonth() * 1) + 1);
+        $('#thu').replaceWith(`<th> ${thud} </th>`);
+        var frid = getDay5_OfWeek(getWeek, year).getDate() + "/" + ((getDay5_OfWeek(getWeek, year).getMonth() * 1) + 1);
+        $('#fri').replaceWith(`<th> ${frid} </th>`);
+        var satd = getDay6_OfWeek(getWeek, year).getDate() + "/" + ((getDay6_OfWeek(getWeek, year).getMonth() * 1) + 1);
+        $('#sat').replaceWith(`<th> ${satd} </th>`);
+        var sund = getDay7_OfWeek(getWeek, year).getDate() + "/" + ((getDay7_OfWeek(getWeek, year).getMonth() * 1) + 1);
+        $('#sun').replaceWith(`<th> ${sund} </th>`);
+    }
+    load3();
+
+
+
+
+</script>
+</html>
