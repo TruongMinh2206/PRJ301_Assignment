@@ -66,7 +66,7 @@ public class take_attendanceController extends HttpServlet {
         }
         SessionDBContext db = new SessionDBContext();
         db.update(ses);
-        response.sendRedirect("take_attendance?id="+ses.getId());
+        //response.sendRedirect("take_attendance?id="+ses.getId());
     }
 
     /** 

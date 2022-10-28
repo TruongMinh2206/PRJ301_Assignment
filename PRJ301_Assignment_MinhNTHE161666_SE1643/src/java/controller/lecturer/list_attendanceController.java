@@ -16,10 +16,7 @@ import model.assignment.Attandance;
 import model.assignment.Session;
 import model.assignment.Student;
 
-/**
- *
- * @author sonnt
- */
+
 public class list_attendanceController extends HttpServlet {
    
     
