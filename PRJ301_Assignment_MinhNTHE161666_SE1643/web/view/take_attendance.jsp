@@ -13,8 +13,8 @@
         Take attendance for Group: ${requestScope.ses.group.name} <br/>
         Subject: ${requestScope.ses.group.subject.name} <br/>
         Room: ${requestScope.ses.room.name} <br/>
-        Date: ${requestScope.ses.date} - ${requestScope.ses.timeslot.description}<br/>
-        Attended: <span style="color: red;"> ${requestScope.ses.attandated?"Yes":"No"} </span>
+        Date: ${requestScope.ses.date} -Slot ${requestScope.ses.timeslot.description}<br/>
+        Attended: <span style="color: red;"> ${requestScope.ses.attandated?"Yes":"Not Yet"} </span>
         
         <form action="take_attendance" method="POST">
             <input type="hidden" name="sesid" value="${param.id}"/>
