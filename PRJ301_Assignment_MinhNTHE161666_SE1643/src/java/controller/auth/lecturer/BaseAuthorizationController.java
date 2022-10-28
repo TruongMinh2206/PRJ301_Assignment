@@ -12,10 +12,7 @@ import model.assignment.Account;
 import model.assignment.Feature;
 import model.assignment.Role;
 
-/**
- *
- * @author sonnt
- */
+
 public abstract class BaseAuthorizationController extends BaseAuthenticationController {
 
     private boolean isAuthorized(HttpServletRequest req)

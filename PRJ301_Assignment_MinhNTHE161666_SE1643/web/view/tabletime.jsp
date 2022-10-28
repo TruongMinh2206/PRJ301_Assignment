@@ -1,8 +1,4 @@
-<%-- 
-    Document   : timetable
-    Created on : Oct 15, 2022, 9:30:31 AM
-    Author     : Ngo Tung Son
---%>
+
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="helper" class="util.DateTimeHelper"/>

@@ -12,10 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.assignment.Account;
 
-/**
- *
- * @author sonnt
- */
+
 public class AccountDBContext extends DBContext<Account> {
 
     public Account get(String username, String password) {

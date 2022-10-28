@@ -23,10 +23,7 @@ import model.assignment.Session;
 import model.assignment.TimeSlot;
 import util.DateTimeHelper;
 
-/**
- *
- * @author Hello Ngo Tung Son handsome
- */
+
 public class TimetableController extends HttpServlet {
    
     /** 

@@ -6,10 +6,7 @@ package model.assignment;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Ngo Tung Son
- */
+
 public class Student {
     private int id;
     private String name;

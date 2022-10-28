@@ -12,10 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.assignment.Account;
 
-/**
- *
- * @author sonnt
- */
+
 public class LoginController extends HttpServlet {
    
     

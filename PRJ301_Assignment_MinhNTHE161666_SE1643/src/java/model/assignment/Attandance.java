@@ -4,10 +4,7 @@
  */
 package model.assignment;
 
-/**
- *
- * @author Ngo Tung Son
- */
+
 public class Attandance {
     private int id;
     private Session session;

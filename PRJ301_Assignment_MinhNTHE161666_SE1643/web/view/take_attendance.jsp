@@ -1,8 +1,4 @@
-<%-- 
-    Document   : att
-    Created on : Oct 16, 2022, 3:08:10 PM
-    Author     : sonnt
---%>
+
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

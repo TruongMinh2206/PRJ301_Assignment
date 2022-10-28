@@ -28,18 +28,8 @@
                 padding: 10px;
                 justify-content: space-between;
                 border-radius: 6px;
-            }/*
-            .top a{
-                text-decoration: none;
             }
-            .topRight span{
-                color:white;
-                background-color: #5cb85c;
-                border-radius: 3px;
-                padding: 0 3px;
-                font-size: 75%;
-            }
-*/            .table{
+           .table{
                 height: 100%;
                 display: flex;
                 align-items: center;

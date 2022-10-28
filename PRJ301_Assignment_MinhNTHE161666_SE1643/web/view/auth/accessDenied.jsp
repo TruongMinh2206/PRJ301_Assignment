@@ -1,8 +1,4 @@
-<%-- 
-    Document   : accessDenied
-    Created on : Oct 17, 2022, 11:02:21 PM
-    Author     : Khangnekk
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
