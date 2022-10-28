@@ -9,6 +9,23 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
+    
+    <style>
+        
+        .nav{
+                background-color: #6b90da;
+                text-align: center;
+            }
+        
+         .attended {
+                text-decoration: none;
+                color: green;
+            }
+            .not_yet {
+                text-decoration: none;
+                color: red;
+            }
+    </style>
     <body>
         Lecturer: <input type="text" readonly="readonly" value="${requestScope.lecturer.name}"/>
         <form action="timetable" method="GET">
@@ -18,7 +35,7 @@
             <input type="submit" value="View"/> 
         </form>
         <table border="1px">
-            <tr>
+            <tr class="nav">
                 <td> </td>
                 <c:forEach items="${requestScope.dates}" var="d">
                     <td>${d}<br/>${helper.getDayNameofWeek(d)}</td>
@@ -26,16 +43,17 @@
             </tr>
             <c:forEach items="${requestScope.slots}" var="slot">
                 <tr>
+                 
                     <td>${slot.description}</td>
                     <c:forEach items="${requestScope.dates}" var="d">
                         <td>
                             <c:forEach items="${requestScope.sessions}" var="ses">
                                 <c:if test="${helper.compare(ses.date,d) eq 0 and (ses.timeslot.id eq slot.id)}">
-                                    <a href="take_attendance?id=${ses.id}">${ses.group.name}-${ses.group.subject.name}</a>
+                                    <a class="ses" href="take_attendance?id=${ses.id}">${ses.group.name}-${ses.group.subject.name}</a>
                                     <br/>
-                                    ${ses.room.name}
+                                    at ${ses.room.name}
                                     <c:if test="${ses.attandated}">
-                                        <span class="Attended"> (Attended)</span>
+                                        <span class="attended"> (Attended)</span>
                                     </c:if>
                                     <c:if test="${!ses.attandated}">
                                         <span class="not_yet"> (Not Yet) </span>

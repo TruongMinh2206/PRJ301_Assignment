@@ -56,6 +56,7 @@ public class take_attendanceController extends HttpServlet {
         ses.setId(Integer.parseInt(request.getParameter("sesid")));
         String[] stdids = request.getParameterValues("stdid");
         for (String stdid : stdids) {
+            
             Attandance a =new Attandance();
             Student s = new Student();
             a.setStudent(s);
@@ -66,10 +67,7 @@ public class take_attendanceController extends HttpServlet {
         }
         SessionDBContext db = new SessionDBContext();
         db.update(ses);
-        //response.sendRedirect("take_attendance?id="+ses.getId());
-        //request.getSession().setAttribute("account", account);
-//            response.getWriter().println("login successful!");
-            response.sendRedirect("timetable");
+        response.sendRedirect("take_attendance?id="+ses.getId());
     }
 
     /** 
