@@ -42,6 +42,10 @@
         <servlet-name>take_attendanceController</servlet-name>
         <servlet-class>controller.lecturer.take_attendanceController</servlet-class>
     </servlet>
+     <servlet>
+        <servlet-name>list_attendanceController</servlet-name>
+        <servlet-class>controller.lecturer.list_attendanceController</servlet-class>
+    </servlet>
    
     <servlet-mapping>
         <servlet-name>BServlet</servlet-name>
@@ -82,6 +86,10 @@
     <servlet-mapping>
         <servlet-name>take_attendanceController</servlet-name>
         <url-pattern>/take_attendance</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>list_attendanceController</servlet-name>
+        <url-pattern>/list_attendance</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

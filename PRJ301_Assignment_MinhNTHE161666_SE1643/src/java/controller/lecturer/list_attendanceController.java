@@ -36,7 +36,7 @@ public class list_attendanceController extends HttpServlet {
         SessionDBContext sesDB = new SessionDBContext();
         Session ses = sesDB.get(sesid);
         request.setAttribute("ses", ses);
-        request.getRequestDispatcher("/view/att.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/list_attendance.jsp").forward(request, response);
     } 
 
     /** 
