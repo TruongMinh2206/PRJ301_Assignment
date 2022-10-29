@@ -12,7 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.assignment.Attandance;
+import model.assignment.Attendance;
 import model.assignment.Session;
 import model.assignment.Student;
 
@@ -53,7 +53,7 @@ public class list_attendanceController extends HttpServlet {
         ses.setId(Integer.parseInt(request.getParameter("sesid")));
         String[] stdids = request.getParameterValues("stdid");
         for (String stdid : stdids) {
-            Attandance a =new Attandance();
+            Attendance a =new Attendance();
             Student s = new Student();
             a.setStudent(s);
             a.setDescription(request.getParameter("description"+stdid));

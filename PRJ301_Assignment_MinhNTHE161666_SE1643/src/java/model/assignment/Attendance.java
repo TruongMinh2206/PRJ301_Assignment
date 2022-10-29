@@ -5,12 +5,13 @@
 package model.assignment;
 
 
-public class Attandance {
+public class Attendance {
     private int id;
     private Session session;
     private Student student;
     private boolean present;
     private String description;
+   
 
     public int getId() {
         return id;

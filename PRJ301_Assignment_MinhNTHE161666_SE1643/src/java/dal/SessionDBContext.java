@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.assignment.Attandance;
+import model.assignment.Attendance;
 import model.assignment.Group;
 import model.assignment.Lecturer;
 import model.assignment.Room;
@@ -115,7 +115,7 @@ public class SessionDBContext extends dal.DBContext<Session> {
             stm_delete.executeUpdate();
 
             //insert new attandances
-            for (Attandance att : model.getAttandances()) {
+            for (Attendance att : model.getAttandances()) {
                 sql = "INSERT INTO [Attandance]\n"
                         + "           ([sesid]\n"
                         + "           ,[stdid]\n"
@@ -220,7 +220,7 @@ public class SessionDBContext extends dal.DBContext<Session> {
                 s.setId(rs.getInt("stdid"));
                 s.setName(rs.getString("stdname"));
                 //read attandance
-                Attandance a = new Attandance();
+                Attendance a = new Attendance();
                 a.setStudent(s);
                 a.setSession(ses);
                 a.setPresent(rs.getBoolean("present"));

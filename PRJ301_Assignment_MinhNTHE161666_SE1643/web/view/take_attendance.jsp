@@ -21,9 +21,9 @@
         Attendance for <span style="font-weight: 700;" > ${requestScope.ses.group.subject.name} </span>
          with lecturer <span style="font-weight: 700;" > ${requestScope.ses.lecturer.name} </span>
          at slot <span style="font-weight: 700;" > ${requestScope.ses.timeslot.description} </span> 
-             on date <span style="font-weight: 700;" > ${requestScope.ses.date}</span> ,
+             on date <span style="font-weight: 700;" > ${requestScope.ses.date} </span> ,
              in  <span style="font-weight: 700;" > ${requestScope.ses.room.name}</span> <br>
-             <br>
+             <br> 
         Attended: <span style="color: red;"> ${requestScope.ses.attandated?"Yes":"Not Yet"} </span> <br>
         
         <form action="take_attendance" method="POST">
