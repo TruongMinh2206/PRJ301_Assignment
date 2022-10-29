@@ -27,6 +27,7 @@ public class AccountDBContext extends DBContext<Account> {
             if(rs.next())
             {
                 Account account = new Account();
+                
                 account.setUsername(rs.getString("username"));
                 account.setDisplayname(rs.getString("displayname"));
                 account.setId(rs.getInt("id"));

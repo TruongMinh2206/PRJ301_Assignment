@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model.assignment;
-
+java.sql.Timestamp
 
 public class Attendance {
     private int id;
@@ -11,7 +11,7 @@ public class Attendance {
     private Student student;
     private boolean present;
     private String description;
-   
+   private datetime recordtime;
 
     public int getId() {
         return id;
@@ -51,6 +51,13 @@ public class Attendance {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    private static class datetime {
+
+        public datetime() {
+            
+        }
     }
     
 }
