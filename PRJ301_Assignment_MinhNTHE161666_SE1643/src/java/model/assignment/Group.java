@@ -12,7 +12,7 @@ public class Group {
     private String name;
     private ArrayList<Student> students = new ArrayList<>();
     private Subject subject;
-    private Lecturer supervisor;
+    private Lecturer lec;
 
     public int getId() {
         return id;
@@ -46,12 +46,12 @@ public class Group {
         this.subject = subject;
     }
 
-    public Lecturer getSupervisor() {
-        return supervisor;
+    public Lecturer getLec() {
+        return lec;
     }
 
     public void setSupervisor(Lecturer supervisor) {
-        this.supervisor = supervisor;
+        this.lec = lec;
     }
     
 }
