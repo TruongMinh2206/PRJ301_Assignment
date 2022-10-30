@@ -69,7 +69,7 @@ public class SessionDBContext extends dal.DBContext<Session> {
                 l.setName(rs.getString("lname"));
                 session.setLecturer(l);
                 
-                g.setId(rs.getInt("gid"));
+                g.setGid(rs.getInt("gid"));
                 g.setName(rs.getString("gname"));
                 session.setGroup(g);
                 
@@ -202,7 +202,7 @@ public class SessionDBContext extends dal.DBContext<Session> {
                     ses.setLecturer(l);
 
                     Group g = new Group();
-                    g.setId(rs.getInt("gid"));
+                    g.setGid(rs.getInt("gid"));
                     g.setName(rs.getString("gname"));
                     ses.setGroup(g);
 

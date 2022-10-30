@@ -5,6 +5,7 @@
 
 package controller.lecturer;
 
+import dal.GroupDBContext;
 import dal.SessionDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,8 +19,11 @@ import model.assignment.Student;
 
 
 public class list_attendanceController extends HttpServlet {
-   
-    
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+            GroupDBContext gdb = new GroupDBContext();
+            ArrayList<Group> groups = gdb.findDataByGname(gname);
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
@@ -32,11 +36,11 @@ public class list_attendanceController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        int sesid = Integer.parseInt(request.getParameter("id"));
-        SessionDBContext sesDB = new SessionDBContext();
-        Session ses = sesDB.get(sesid);
-        request.setAttribute("ses", ses);
-        request.getRequestDispatcher("/view/list_attendance.jsp").forward(request, response);
+//        int sesid = Integer.parseInt(request.getParameter("id"));
+//        SessionDBContext sesDB = new SessionDBContext();
+//        Session ses = sesDB.get(sesid);
+//        request.setAttribute("ses", ses);
+//        request.getRequestDispatcher("/view/list_attendance.jsp").forward(request, response);
     } 
 
     /** 
@@ -49,21 +53,21 @@ public class list_attendanceController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        Session ses = new Session();
-        ses.setId(Integer.parseInt(request.getParameter("sesid")));
-        String[] stdids = request.getParameterValues("stdid");
-        for (String stdid : stdids) {
-            Attendance a =new Attendance();
-            Student s = new Student();
-            a.setStudent(s);
-            a.setDescription(request.getParameter("description"+stdid));
-            a.setPresent(request.getParameter("present"+stdid).equals("present"));
-            s.setId(Integer.parseInt(stdid));
-            ses.getAttandances().add(a);
-        }
-        SessionDBContext db = new SessionDBContext();
-        db.update(ses);
-        response.sendRedirect("takeatt?id="+ses.getId());
+//        Session ses = new Session();
+//        ses.setId(Integer.parseInt(request.getParameter("sesid")));
+//        String[] stdids = request.getParameterValues("stdid");
+//        for (String stdid : stdids) {
+//            Attendance a =new Attendance();
+//            Student s = new Student();
+//            a.setStudent(s);
+//            a.setDescription(request.getParameter("description"+stdid));
+//            a.setPresent(request.getParameter("present"+stdid).equals("present"));
+//            s.setId(Integer.parseInt(stdid));
+//            ses.getAttandances().add(a);
+//        }
+//        SessionDBContext db = new SessionDBContext();
+//        db.update(ses);
+//        response.sendRedirect("takeatt?id="+ses.getId());
     }
 
     /** 

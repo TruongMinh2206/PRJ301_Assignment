@@ -8,18 +8,18 @@ import java.util.ArrayList;
 
 
 public class Group {
-    private int id;
+    private int gid;
     private String name;
     private ArrayList<Student> students = new ArrayList<>();
     private Subject subject;
     private Lecturer lec;
 
-    public int getId() {
-        return id;
+    public int getGid() {
+        return gid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setGid(int id) {
+        this.gid = gid;
     }
 
     public String getName() {
@@ -50,7 +50,7 @@ public class Group {
         return lec;
     }
 
-    public void setSupervisor(Lecturer supervisor) {
+    public void setLec(Lecturer lec) {
         this.lec = lec;
     }
     
