@@ -22,7 +22,8 @@ public class list_attendanceController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
             GroupDBContext gdb = new GroupDBContext();
-            ArrayList<Group> groups = gdb.findDataByGname(gname);
+            
+            
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -36,6 +37,7 @@ public class list_attendanceController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        processRequest( request,response);
 //        int sesid = Integer.parseInt(request.getParameter("id"));
 //        SessionDBContext sesDB = new SessionDBContext();
 //        Session ses = sesDB.get(sesid);
@@ -53,6 +55,7 @@ public class list_attendanceController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        processRequest( request,response);
 //        Session ses = new Session();
 //        ses.setId(Integer.parseInt(request.getParameter("sesid")));
 //        String[] stdids = request.getParameterValues("stdid");
