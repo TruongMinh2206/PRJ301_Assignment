@@ -23,11 +23,13 @@ import model.assignment.Student;
 public class list_attendanceController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String gname = request.getParameter("gname");
-        int gid = Integer.parseInt(request.getParameter("gid"));
+       
+        int lid = Integer.parseInt(request.getParameter("lid"));
             GroupDBContext gdb = new GroupDBContext();
-            ArrayList<Group> groups = gdb.findDataByGname(gname);
-             Group group = gdb.get(gname);
+            ArrayList<Group> groups = gdb.findByGid(lid);
+             
+             request.setAttribute("groups", groups);
+             request.getRequestDispatcher("/view/list_attendance.jsp");
              
              
     }

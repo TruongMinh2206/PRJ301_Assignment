@@ -15,55 +15,51 @@ import model.assignment.Lecturer;
 import model.assignment.Session;
 import model.assignment.Student;
 import model.assignment.Student_Group;
+import model.assignment.Subject;
 
 /**
  *
  * @author ADMIN
  */
 public class GroupDBContext extends dal.DBContext<Group> {
-    public ArrayList<Group> findDataByGname(String gname){
-         ArrayList<Group> groups = new ArrayList<>();
+
+    public ArrayList<Group> findByGid(int gid) {
+        ArrayList<Group> groups = new ArrayList<>();
         try {
-            String sql = "select g.gid, g.gname,s.stdid, s.stdname,ses.date, ses.attanded, lec.lname from [Group] g\n"
+            String sql = "select g.gid, g.gname, s.subname,s.numOfSlot, lec.lid,lname, g.sem, g.[year] from [Group] g\n"
                     + "\n"
-                    + "INNER JOIN [Student_Group] sg ON sg.gid = g.gid\n"
-                    + "INNER JOIN [Student] s ON s.stdid = sg.stdid\n"
-                    + "INNER JOIN [Session] ses ON ses.gid = g.gid\n"
-                    + "INNER JOIN [Lecturer] lec ON lec.lid = ses.lid\n"
-                    + "where  gname = ?";
+                    + "INNER JOIN Subject s ON s.subid = g.subid\n"
+                    + "INNER JOIN Lecturer lec ON lec.lid = g.lid\n"
+                    + "where g.lid = 1";
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, gname);
-            
+            stm.setInt(1, gid);
+
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                 Group group= new Group();
-                Session ses = new Session();
+                Group group = new Group();
+                Subject sub = new Subject();
                 Lecturer lec = new Lecturer();
-                Student s = new Student();
-                Student_Group sg = new Student_Group();
                 
+
                 group.setGid(rs.getInt("gid"));
                 group.setName(rs.getString("gname"));
-                
-                ses.setDate(rs.getDate("date"));                
-                ses.setAttandated(rs.getBoolean("attanded"));
+
                 
                 lec.setId(rs.getInt("lid"));
                 lec.setName(rs.getString("lname"));
                 group.setLec(lec);
 
-                 s.setId(rs.getInt("stdid"));
-                 s.setName(rs.getString("gname"));
-
+                sub.setId(rs.getInt("stdid"));
+                sub.setName(rs.getString("gname"));
+                sub.setNumOfSlot(rs.getInt("numOfSlot"));
+                group.setSubject(sub);
                 groups.add(group);
             }
         } catch (SQLException ex) {
             Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return groups;
-     }
-    
-    
+    }
 
     @Override
     public void insert(Group model) {
@@ -80,39 +76,35 @@ public class GroupDBContext extends dal.DBContext<Group> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public Group get(String gname) {
+    public Group get(int gid) {
         try {
-            String sql = "select g.gid, g.gname,s.stdid, s.stdname,ses.date, ses.attanded, lec.lname from [Group] g\n"
+            String sql = "select g.gid, g.gname, s.subname,s.numOfSlot, lec.lid,lname, g.sem, g.[year] from [Group] g\n"
                     + "\n"
-                    + "INNER JOIN [Student_Group] sg ON sg.gid = g.gid\n"
-                    + "INNER JOIN [Student] s ON s.stdid = sg.stdid\n"
-                    + "INNER JOIN [Session] ses ON ses.gid = g.gid\n"
-                    + "INNER JOIN [Lecturer] lec ON lec.lid = ses.lid\n"
-                    + "where  gname = ?";
+                    + "INNER JOIN Subject s ON s.subid = g.subid\n"
+                    + "INNER JOIN Lecturer lec ON lec.lid = g.lid\n"
+                    + "where g.lid = 1";
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, gname);
-            
+            stm.setInt(1, gid);
+
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                 Group group= new Group();
-                Session ses = new Session();
+                Group group = new Group();
+                Subject sub = new Subject();
                 Lecturer lec = new Lecturer();
-                Student s = new Student();
-                Student_Group sg = new Student_Group();
                 
+
                 group.setGid(rs.getInt("gid"));
                 group.setName(rs.getString("gname"));
-                
-                ses.setDate(rs.getDate("date"));                
-                ses.setAttandated(rs.getBoolean("attanded"));
+
                 
                 lec.setId(rs.getInt("lid"));
                 lec.setName(rs.getString("lname"));
                 group.setLec(lec);
 
-                 s.setId(rs.getInt("stdid"));
-                 s.setName(rs.getString("gname"));
-
+                sub.setId(rs.getInt("stdid"));
+                sub.setName(rs.getString("gname"));
+                sub.setNumOfSlot(rs.getInt("numOfSlot"));
+                group.setSubject(sub);
                 return group;
             }
         } catch (SQLException ex) {
@@ -123,12 +115,8 @@ public class GroupDBContext extends dal.DBContext<Group> {
 
     @Override
     public ArrayList<Group> list() {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-
-    }
-
-    @Override
-    public Group get(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
     }
+
 }

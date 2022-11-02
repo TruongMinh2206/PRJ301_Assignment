@@ -15,6 +15,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         
         <form action="list_attendance" method="GET">
              <input type="hidden" name="lid" value="${param.lid}"/>
+             <input type="text" name="gid" value="${param.gid}"/>
              List attendance of 
              <select name="gid">
                  <c:forEach items="${requestScope.groups}" var="group">
