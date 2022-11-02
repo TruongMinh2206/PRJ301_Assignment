@@ -13,7 +13,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import model.assignment.Attendance;
+import model.assignment.Group;
 import model.assignment.Session;
 import model.assignment.Student;
 
@@ -21,9 +23,13 @@ import model.assignment.Student;
 public class list_attendanceController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        String gname = request.getParameter("gname");
+        int gid = Integer.parseInt(request.getParameter("gid"));
             GroupDBContext gdb = new GroupDBContext();
-            
-            
+            ArrayList<Group> groups = gdb.findDataByGname(gname);
+             Group group = gdb.get(gname);
+             
+             
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
