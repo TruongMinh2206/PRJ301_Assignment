@@ -5,47 +5,60 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>SLogin now</title>
-        <style>
-            .login-form{
-                width: 300px;
-                margin: 10px auto;
-                padding: 15px;
-                border: 1px solid #ccc;
-                border-radius: 9px;
-            }
-            .login-form h2{
-                text-align: center; 
-            }
-            .noti p{
-                color: red;
-            }
-        </style>
+        <title>Login now</title>
+        <link rel="stylesheet" href="css/LoginCss.css"/>
     </head>
     <body>
-        <div class="login-form">
+        <div class="login-box">
+            <h2>Login now</h2>
             <form action="login" method="POST">
-                <table>
-                    <h2>SLogin now</h2>
-                    <tr>
-                        <td>Email</td>
-                        <td><input type="text" name="username" value=""/></td>
-                    </tr>
-                    <tr>
-                        <td>Password:</td>
-                        <td><input type="password" name="password" value=""/></td>
-                    </tr>
-                    <tr class="noti">
-                        <td colspan="2">
+                <div class="user-box">
+                    <input type="text" name="username" value=""/>
+                         <label>Email</label>
+                </div>
+                
+                 <div class="user-box">
+                   <input type="password" name="password" value=""/>
+                         <label>Password</label>
+                </div>
+                   
+                        
+                
+                    <div class="noti">
+                        
                             <p>${noti}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td style="text-align: center"><input type="submit" value="Login" /> </td>
-                    </tr>
+                       </div>
+                                          
+                    <a href="">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <input style="background-color: rgba(0,0,0,.5); color: white;font-size: 1.5rem" type="submit" value="login"  /> 
+                    </a>
+                   <!--<div class="login-box">
+  <h2>Login</h2>
+  <form>
+    <div class="user-box">
+      <input type="text" name="" required="">
+      <label>Username</label>
+    </div>
+    <div class="user-box">
+      <input type="password" name="" required="">
+      <label>Password</label>
+    </div>
+    <a href="#">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Submit
+    </a>
+  </form>
+</div>-->
                     
-                </table>
+
+                
             </form> 
         </div>   
     </body>
