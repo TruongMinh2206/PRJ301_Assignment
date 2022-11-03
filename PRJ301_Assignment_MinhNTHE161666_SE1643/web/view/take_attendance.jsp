@@ -14,6 +14,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" href="css/TakeattCss.css"/>
     </head>
     
     <body>
@@ -25,8 +26,8 @@
              in  <span style="font-weight: 700;" > ${requestScope.ses.room.name}</span> <br>
              <br> 
         Attended: <span style="color: red;"> ${requestScope.ses.attandated?"Yes":"Not Yet"} </span> <br>
-        
-        <form action="take_attendance" method="POST">
+        <div class="table">
+            <form action="take_attendance" method="POST">
             <input type="hidden" name="sesid" value="${param.id}"/>
             <table border="1px">
                 <tr class="thead">
@@ -67,5 +68,7 @@
             </table>
             <input type="submit" value="Save"/>
         </form>
+        </div>
+        
     </body>
 </html>

@@ -77,7 +77,7 @@
                     &nbsp;|
                     <a href="logout">
                         <span>
-                            logout
+                            login
                         </span>
                     </a>
                     &nbsp;|

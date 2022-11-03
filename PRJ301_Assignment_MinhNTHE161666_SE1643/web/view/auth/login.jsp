@@ -4,9 +4,10 @@
 <!DOCTYPE html>
 <html>
     <head>
+         <link rel="stylesheet" href="css/LoginCss.css"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login now</title>
-        <link rel="stylesheet" href="css/LoginCss.css"/>
+       
     </head>
     <body>
         <div class="login-box">
