@@ -16,8 +16,43 @@ import model.assignment.Lecturer;
 import model.assignment.Session;
 import model.assignment.Student;
 
+public class AttendanceDBContext extends DBContext<Attendance> {
 
-public class AttendanceDBContext extends DBContext<Attendance>{
+    public ArrayList<Attendance> reportAttend(int gid) {
+        ArrayList<Attendance> atts = new ArrayList<>();
+        try {
+            String sql = "SELECT S.stdid, S.stdname,SS.sesid, attanded,A.present\n"
+                    + "FROM Student S\n"
+                    + "       INNER JOIN Student_Group SG ON S.stdid = SG.stdid\n"
+                    + "       INNER JOIN [Group] G ON SG.gid = G.gid\n"
+                    + "       INNER JOIN [Session] SS ON SS.gid = G.gid\n"
+                    + "       LEFT JOIN Attandance A ON A.stdid = S.stdid AND SS.sesid = A.sesid\n"
+                    + "        WHERE G.gid = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, gid);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Attendance att = new Attendance();
+                Student s = new Student();
+                Session ses = new Session();
+
+                s.setId(rs.getInt("stdid"));
+                s.setName(rs.getString("stdname"));
+                att.setStudent(s);
+
+                ses.setId(rs.getInt("sesid"));
+                ses.setAttandated(rs.getBoolean("attanded"));
+                att.setSession(ses);
+
+                att.setPresent(rs.getBoolean("present"));
+
+                atts.add(att);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LecturerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return atts;
+    }
 
     @Override
     public void insert(Attendance model) {
@@ -58,21 +93,20 @@ public class AttendanceDBContext extends DBContext<Attendance>{
                 a.setId(aid);
                 a.setPresent(present);
                 a.setDescription(des);
-                
-                for(Student s : students){
-                    if(s.getId()==stdid){
+
+                for (Student s : students) {
+                    if (s.getId() == stdid) {
                         Student st = s;
                         a.setStudent(st);
                     }
                 }
-                for(Session se : sessions){
-                    if(se.getId()==sesid){
+                for (Session se : sessions) {
+                    if (se.getId() == sesid) {
                         Session ses = se;
                         a.setSession(ses);
                     }
                 }
-                
-                
+
                 attendances.add(a);
             }
 
@@ -82,5 +116,5 @@ public class AttendanceDBContext extends DBContext<Attendance>{
 
         return attendances;
     }
-    
+
 }

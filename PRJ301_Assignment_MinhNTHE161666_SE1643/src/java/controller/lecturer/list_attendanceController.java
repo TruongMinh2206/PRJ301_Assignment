@@ -5,8 +5,10 @@
 
 package controller.lecturer;
 
+import dal.AttendanceDBContext;
 import dal.GroupDBContext;
 import dal.SessionDBContext;
+import dal.StudentDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -29,6 +31,22 @@ public class list_attendanceController extends HttpServlet {
             ArrayList<Group> groups = gdb.findByGid(lid);
              
              request.setAttribute("groups", groups);
+             int gid = Integer.parseInt(request.getParameter("gid"));
+            Group group = gdb.get(gid);
+
+            SessionDBContext sesdb = new SessionDBContext();
+            ArrayList<Session> sessions = sesdb.getDataSesInGroup(gid);
+
+            StudentDBContext sdb = new StudentDBContext();
+            ArrayList<Student> students = sdb.getAllStudentInGroup(gid);
+
+            AttendanceDBContext attdb = new AttendanceDBContext();
+            ArrayList<Attendance> atts = attdb.reportAttend(gid);
+
+            request.setAttribute("sessions", sessions);
+            request.setAttribute("group", group);
+            request.setAttribute("students", students);
+            request.setAttribute("atts", atts);
              request.getRequestDispatcher("/view/list_attendance.jsp");
              
              
