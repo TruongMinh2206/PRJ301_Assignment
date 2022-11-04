@@ -66,6 +66,28 @@ public class LecturerDBContext extends dal.DBContext<Lecturer> {
         }
         return -1;
     }
+    
+    public Lecturer getLecturerAccount(String username) {
+        try {
+            String sql = "SELECT a.username, al.lid, l.lname\n" +
+"                    	FROM Account a \n" +
+"                    	INNER JOIN Account_Lecturer al ON A.username = al.username\n" +
+"                    	INNER JOIN Lecturer l ON al.lid = l.lid\n" +
+"                    	WHERE a.username = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, username);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                Lecturer l = new Lecturer();
+                l.setId(rs.getInt("lid"));
+                l.setName(rs.getString("lname"));
+                return l;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LecturerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     @Override
     public ArrayList<Lecturer> list() {

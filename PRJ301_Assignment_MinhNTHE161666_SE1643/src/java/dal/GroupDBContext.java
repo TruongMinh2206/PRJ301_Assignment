@@ -23,43 +23,39 @@ import model.assignment.Subject;
  */
 public class GroupDBContext extends dal.DBContext<Group> {
 
-    public ArrayList<Group> findByGid(int gid) {
-        ArrayList<Group> groups = new ArrayList<>();
+    public ArrayList<Group> listInGoups(int gid, int lid, int subid) {
         try {
-            String sql = "select g.gid, g.gname, s.subname,s.numOfSlot, lec.lid,lname, g.sem, g.[year] from [Group] g\n"
-                    + "\n"
-                    + "INNER JOIN Subject s ON s.subid = g.subid\n"
-                    + "INNER JOIN Lecturer lec ON lec.lid = g.lid\n"
-                    + "where g.lid = 1";
+            String sql = "SELECT DISTINCT ses.sesid\n"
+                    + "FROM [Session] ses \n"
+                    + "	LEFT JOIN [Group] g ON g.gid = ses.gid\n"
+                    + "	INNER JOIN [Student_Group] sg ON sg.gid = g.gid\n"
+                    + "	INNER JOIN Student s ON sg.stdid = s.stdid\n"
+                    + "	INNER JOIN Lecturer l ON l.lid = ses.lid\n"
+                    + "	INNER JOIN [Subject] sb ON sb.subid = g.subid\n"
+                    + "WHERE g.gid = ? and l.lid = ? and sb.subid = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, gid);
-
+            stm.setInt(2, lid);
+            stm.setInt(3, subid);
             ResultSet rs = stm.executeQuery();
+            Group group = new Group();
+            group.setId(gid);
+            ArrayList<Session> sessions = new ArrayList<>();
             while (rs.next()) {
-                Group group = new Group();
-                Subject sub = new Subject();
-                Lecturer lec = new Lecturer();
-                
-
-                group.setGid(rs.getInt("gid"));
-                group.setName(rs.getString("gname"));
-
-                
-                lec.setId(rs.getInt("lid"));
-                lec.setName(rs.getString("lname"));
-                group.setLec(lec);
-
-                sub.setId(rs.getInt("stdid"));
-                sub.setName(rs.getString("gname"));
-                sub.setNumOfSlot(rs.getInt("numOfSlot"));
-                group.setSubject(sub);
-                groups.add(group);
+                SessionDBContext sesDB = new SessionDBContext();
+                Session session = sesDB.get(rs.getInt("sesid"));
+                sessions.add(session);
             }
+            group.setSessions(sessions);
+            StudentDBContext stdDB = new StudentDBContext();
+            group.setStudents(stdDB.list(gid));
+            return group;
         } catch (SQLException ex) {
             Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return groups;
+        return null;
     }
+    
 
     @Override
     public void insert(Group model) {
@@ -76,42 +72,7 @@ public class GroupDBContext extends dal.DBContext<Group> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public Group get(int gid) {
-        try {
-            String sql = "select g.gid, g.gname, s.subname,s.numOfSlot, lec.lid,lname, g.sem, g.[year] from [Group] g\n"
-                    + "\n"
-                    + "INNER JOIN Subject s ON s.subid = g.subid\n"
-                    + "INNER JOIN Lecturer lec ON lec.lid = g.lid\n"
-                    + "where g.lid = 1";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, gid);
-
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                Group group = new Group();
-                Subject sub = new Subject();
-                Lecturer lec = new Lecturer();
-                
-
-                group.setGid(rs.getInt("gid"));
-                group.setName(rs.getString("gname"));
-
-                
-                lec.setId(rs.getInt("lid"));
-                lec.setName(rs.getString("lname"));
-                group.setLec(lec);
-
-                sub.setId(rs.getInt("stdid"));
-                sub.setName(rs.getString("gname"));
-                sub.setNumOfSlot(rs.getInt("numOfSlot"));
-                group.setSubject(sub);
-                return group;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
+   
 
     @Override
     public ArrayList<Group> list() {

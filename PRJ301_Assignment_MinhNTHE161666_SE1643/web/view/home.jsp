@@ -90,13 +90,13 @@
             </div>
             <div>
                 <div class="welcome">
-                    <p>Hello, ${sessionScope.account.displayname}<br></p>
+                    <p>Hello, ${sessionScope.account.username}<br></p>
                                 <input type="hidden" name="lid" value="${param.lid}"/>
 
                 </div>
                 
                 <a href="timetable?lid=${sessionScope.account.id}" >Time Table</a><br>
-                <a href="list_attendance"> report attendance</a>
+                <a href="list_attendance?lid=${sessionScope.account.id}"> report attendance</a>
             </div>
             
         </div>

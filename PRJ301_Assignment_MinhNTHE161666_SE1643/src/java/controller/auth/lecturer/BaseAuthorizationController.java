@@ -36,7 +36,7 @@ public abstract class BaseAuthorizationController extends BaseAuthenticationCont
         }
         else
         {
-            resp.getWriter().println("access denied!");
+             processPost(req, resp, (Account)req.getSession().getAttribute("account"));
         }
     }
     
@@ -50,7 +50,7 @@ public abstract class BaseAuthorizationController extends BaseAuthenticationCont
         }
         else
         {
-            resp.getWriter().println("access denied!");
+            processGet(req, resp, (Account)req.getSession().getAttribute("account"));
         }
     }
     
