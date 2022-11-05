@@ -23,7 +23,7 @@ import model.assignment.Subject;
  */
 public class GroupDBContext extends dal.DBContext<Group> {
 
-    public ArrayList<Group> listInGoups(int gid, int lid, int subid) {
+    public Group listInGoups(int gid, int lid, int subid) {
         try {
             String sql = "SELECT DISTINCT ses.sesid\n"
                     + "FROM [Session] ses \n"
@@ -48,7 +48,7 @@ public class GroupDBContext extends dal.DBContext<Group> {
             }
             group.setSessions(sessions);
             StudentDBContext stdDB = new StudentDBContext();
-            group.setStudents(stdDB.list(gid));
+            group.setStudents(stdDB.getAllStudentInGroup(gid));
             return group;
         } catch (SQLException ex) {
             Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
@@ -78,6 +78,15 @@ public class GroupDBContext extends dal.DBContext<Group> {
     public ArrayList<Group> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 
+    }
+
+    @Override
+    public Group get(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public Group get(int gid, int lid, int subid) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

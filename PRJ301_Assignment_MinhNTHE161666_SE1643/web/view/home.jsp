@@ -90,8 +90,8 @@
             </div>
             <div>
                 <div class="welcome">
-                    <p>Hello, ${sessionScope.account.username}<br></p>
-                                <input type="hidden" name="lid" value="${param.lid}"/>
+                    <p>Hello, ${requestScope.account.username}<br></p>
+                            
 
                 </div>
                 

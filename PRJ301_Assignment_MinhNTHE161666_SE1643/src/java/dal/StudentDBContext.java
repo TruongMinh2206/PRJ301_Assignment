@@ -21,12 +21,12 @@ public class StudentDBContext extends DBContext<Student>{
     public ArrayList<Student> getAllStudentInGroup(int gid) {
         ArrayList<Student> stds = new ArrayList<>();
         try{
-        String sql = "SELECT S.stdid, stdname\n"
-                + "		,G.gid\n"
-                + "	FROM Student S\n"
-                + "		INNER JOIN Student_Group SG ON S.stdid = SG.stdid\n"
-                + "		INNER JOIN [Group] G ON SG.gid = G.gid\n"
-                + "		WHERE G.gid = ?";
+        String sql = "SELECT DISTINCT s.stdid,s.stdname\n"
+                    + "FROM [Session] ses \n"
+                    + "	LEFT JOIN [Group] g ON g.gid = ses.gid\n"
+                    + "	INNER JOIN [Student_Group] sg ON sg.gid = g.gid\n"
+                    + "	INNER JOIN Student s ON sg.stdid = s.stdid\n"
+                    + "WHERE g.gid = ?";
         PreparedStatement stm = connection.prepareStatement(sql);
         stm.setInt(1, gid);
         ResultSet rs = stm.executeQuery();
@@ -43,6 +43,8 @@ public class StudentDBContext extends DBContext<Student>{
         }
         return stds;
     }
+    
+   
 
     @Override
     public void insert(Student model) {
@@ -61,12 +63,43 @@ public class StudentDBContext extends DBContext<Student>{
 
     @Override
     public Student get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         try {
+            String sql = "SELECT stdid,stdname FROM Student WHERE stdid = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next())
+            {
+                Student stu = new Student();
+                stu.setId(rs.getInt("stdid"));
+                stu.setName(rs.getString("stdname"));
+                return stu;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LecturerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
     public ArrayList<Student> list() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Student> students = new ArrayList<>();
+        String sql = "SELECT stdid,stdname FROM Student";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Student s = new Student();
+                int sid = rs.getInt("stdid");
+                String sname = rs.getString("stdname");
+                s.setId(sid);
+                s.setName(sname);
+                students.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return students;
     }
     
 }

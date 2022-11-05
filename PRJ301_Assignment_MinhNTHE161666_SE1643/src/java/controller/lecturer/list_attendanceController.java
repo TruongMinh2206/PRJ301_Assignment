@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
+
 
 package controller.lecturer;
 
@@ -28,44 +25,24 @@ import model.assignment.Account;
 public class list_attendanceController extends BaseAuthorizationController{
  
 
-       protected void processRequest(HttpServletRequest request, HttpServletResponse response, Account account)
-    throws ServletException, IOException {
-        LecturerDBContext ldb = new LecturerDBContext();
-        int lid = ldb.getLecturerAccount(account.getUsername()).getId();
-            GroupDBContext gdb = new GroupDBContext();
-            ArrayList<Group> groups = gdb.findByGid(lid);
-             
-             request.setAttribute("groups", groups);
-             int gid = Integer.parseInt(request.getParameter("gid"));
-            Group group = gdb.get(gid);
-
-            SessionDBContext sesdb = new SessionDBContext();
-            ArrayList<Session> sessions = sesdb.getDataSesInGroup(gid);
-
-            StudentDBContext sdb = new StudentDBContext();
-            ArrayList<Student> students = sdb.getAllStudentInGroup(gid);
-
-            AttendanceDBContext attdb = new AttendanceDBContext();
-            ArrayList<Attendance> atts = attdb.reportAttend(gid);
-
-            request.setAttribute("sessions", sessions);
-            request.setAttribute("group", group);
-            request.setAttribute("students", students);
-            request.setAttribute("atts", atts);
-             request.getRequestDispatcher("/view/list_attendance.jsp");
-             
-             
-    }
-
-
-    @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response, Account account) throws ServletException, IOException {
-        processRequest(request, response, account);
+      protected void processRequest(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+          int gid = Integer.parseInt(req.getParameter("gid"));
+        int lid = Integer.parseInt(req.getParameter("lid"));
+        int subid = Integer.parseInt(req.getParameter("subid"));
+        GroupDBContext gdb = new GroupDBContext();
+        Group group = gdb.listInGoups(gid, lid, subid);
+        req.setAttribute("group", group);
+        req.getRequestDispatcher("/view/list_attendance.jsp").forward(req, resp);
     }
 
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response, Account account) throws ServletException, IOException {
-         processRequest(request, response, account);
+    protected void processPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        processRequest(req,resp,account);
     }
 
+    @Override
+    protected void processGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+         processRequest(req,resp,account);
+       
+    }
 }

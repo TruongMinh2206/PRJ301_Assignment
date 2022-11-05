@@ -8,18 +8,47 @@ import java.util.ArrayList;
 
 
 public class Group {
-    private int gid;
+    private int id;
     private String name;
     private ArrayList<Student> students = new ArrayList<>();
     private Subject subject;
     private Lecturer lec;
+      private ArrayList<Session> sessions = new ArrayList<>();
+       private String sem;
+    private int year;
 
-    public int getGid() {
-        return gid;
+    public ArrayList<Session> getSessions() {
+        return sessions;
     }
 
-    public void setGid(int id) {
-        this.gid = gid;
+    public void setSessions(ArrayList<Session> sessions) {
+        this.sessions = sessions;
+    }
+
+    public String getSem() {
+        return sem;
+    }
+
+    public void setSem(String sem) {
+        this.sem = sem;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+    
+    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

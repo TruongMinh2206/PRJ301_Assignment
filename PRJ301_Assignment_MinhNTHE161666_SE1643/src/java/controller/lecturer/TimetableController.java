@@ -31,8 +31,9 @@ public class TimetableController extends BaseAuthorizationController {
     
      protected void processRequest(HttpServletRequest request, HttpServletResponse response,Account account)
     throws ServletException, IOException {
-         LecturerDBContext ldb = new LecturerDBContext();
-        int lid = Integer.parseInt(request.getParameter("lid"));
+        
+//        int lid = Integer.parseInt(request.getParameter("lid"));
+        int lid = account.getId();
         String raw_from = request.getParameter("from");
         String raw_to = request.getParameter("to");
         java.sql.Date from = null;
@@ -51,7 +52,7 @@ public class TimetableController extends BaseAuthorizationController {
             from = java.sql.Date.valueOf(raw_from);
             to = java.sql.Date.valueOf(raw_to);
         }
-        request.setAttribute("lid", lid);
+        //request.setAttribute("lid", lid);
         request.setAttribute("from", from);
         request.setAttribute("to", to);
         request.setAttribute("dates", DateTimeHelper.getDateList(from, to));

@@ -50,8 +50,9 @@
                             <c:forEach items="${requestScope.sessions}" var="ses">
                                 <c:if test="${helper.compare(ses.date,d) eq 0 and (ses.timeslot.id eq slot.id)}">
                                     <a class="ses" href="take_attendance?id=${ses.id}">${ses.group.name}-${ses.group.subject.name}</a>
-                                    <a class="ses" href="list_attendance?id=${ses.id}">${ses.group.name}-${ses.group.subject.name}</a>Status
+                                    
                                     <br/>
+                                     <a href="list_attendance?gid=${ses.group.id}&lid=${ses.lecturer.id}&subid=${ses.group.subject.id}">List</a><
                                     at ${ses.room.name}
                                     <c:if test="${ses.attandated}">
                                         <span class="attended"> (Attended)</span>

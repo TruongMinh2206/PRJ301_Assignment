@@ -26,52 +26,67 @@ import model.assignment.TimeSlot;
  */
 public class SessionDBContext extends dal.DBContext<Session> {
 
-    public ArrayList<Session> getDataSesInGroup(int gid) {
-        ArrayList<Session> sessions = new ArrayList<>();
+    public ArrayList<Session> getDataSesInGroup(int stdid, Date from, Date to) {
+        ArrayList<Session> sessionstu = new ArrayList<>();
         try {
-            String sql = "SELECT sesid,[date],[index],numOfSlot,attanded,l.lid,l.lname,g.gid,g.gname\n"
-                    + "				,sub.subid,sub.subname\n"
-                    + "				,t.tid,t.[description]\n"
-                    + "                ,r.rid,r.rname\n"
-                    + "                \n"
-                    + "   FROM [Session] ses			INNER JOIN [Group] g ON g.gid = ses.gid\n"
-                    + "                    			INNER JOIN Lecturer l ON l.lid = ses.lid\n"
-                    + "                    			\n"
-                    + "                    		INNER JOIN [Subject] sub ON sub.subid = g.subid\n"
-                    + "                    			INNER JOIN Room r ON r.rid = ses.rid\n"
-                    + "                    			INNER JOIN TimeSlot t ON t.tid = ses.tid\n"
-                    + "                    WHERE\n"
-                    + "                    ses.gid = ?";
+            String sql = "Select s.sesid,s.date,s.attanded\n"
+                    + "   ,g.gid,g.gname,g.subid\n"
+                    + "   ,st.stdid,st.stdname\n"
+                    + "   ,l.lid,l.lname\n"
+                    + "   ,r.rid,r.rname,sub.subname\n"
+                    + "   ,t.tid,t.description \n"
+                    + "   ,a.stdid,a.present\n"
+                    + "    FROM Session s\n"
+                    + "    INNER JOIN [Group] g ON s.gid = g.gid\n"
+                    + "    INNER JOIN Student_Group gs ON g.gid= gs.gid\n"
+                    + "   INNER JOIN Student st ON gs.stdid = st.stdid\n"
+                    + "   INNER JOIN Subject sub ON sub.subid=g.subid\n"
+                    + "   INNER JOIN Lecturer l ON s.lid = l.lid\n"
+                    + "   INNER JOIN Room r ON s.rid = r.rid\n"
+                    + "   INNER JOIN TimeSlot t ON s.tid = t.tid\n"
+                    + "   LEFT JOIN Attendance a ON s.sesid= a.sesid AND a.stdid = st.stdid\n"
+                    + "   WHERE st.stdid = ? AND s.date >= ? AND s.date<= ?";
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, gid);
-
+            stm.setInt(1,stdid);
+            stm.setDate(2, from);
+            stm.setDate(3, to);
             ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
+            while(rs.next())
+            {
                 Session session = new Session();
+                Group g = new Group();
+                Subject c = new Subject();
+                Student s = new Student();
+                ArrayList<Student> students = new ArrayList<>();
                 Lecturer l = new Lecturer();
                 Room r = new Room();
-                Group g = new Group();
                 TimeSlot t = new TimeSlot();
-                Subject sub = new Subject();
-                
+                Attendance att = new Attendance();
                 session.setId(rs.getInt("sesid"));
                 session.setDate(rs.getDate("date"));
-                session.setIndex(rs.getInt("index"));
-                session.setAttandated(rs.getBoolean("attanded"));
-                
-                g.setGid(rs.getInt("gid"));
-                g.setName(rs.getString("gname"));
-                session.setGroup(g);
-                
+                Boolean attended = rs.getBoolean("attanded");
+                if (rs.wasNull()) {
+                    attended = null;
+                }
+                session.setAttandated(attended);
+
+                s.setId(rs.getInt("stdid"));
+                s.setName(rs.getString("stdname"));
+                students.add(s);
+                g.setStudents(students);
+
                 l.setId(rs.getInt("lid"));
                 l.setName(rs.getString("lname"));
                 session.setLecturer(l);
-                
-                sub.setId(rs.getInt("subid"));
-                sub.setName(rs.getString("subname"));
-                sub.setNumOfSlot(rs.getInt("numOfSlot"));
-                g.setSubject(sub);
-                
+
+                c.setId(rs.getInt("subid"));
+                c.setName(rs.getString("subname"));
+                g.setSubject(c);
+
+                g.setId(rs.getInt("gid"));
+                g.setName(rs.getString("gname"));
+                session.setGroup(g);
+
                 r.setId(rs.getInt("rid"));
                 r.setName(rs.getString("rname"));
                 session.setRoom(r);
@@ -79,13 +94,22 @@ public class SessionDBContext extends dal.DBContext<Session> {
                 t.setId(rs.getInt("tid"));
                 t.setDescription(rs.getString("description"));
                 session.setTimeslot(t);
+                
+                att.setStudent(s);
+                Boolean present = rs.getBoolean("present");
+                if (rs.wasNull()) {
+                    present = null;
+                }
+                att.setPresent(present);
+                session.getAttandances().add(att);
+                sessionstu.add(session);
 
-                sessions.add(session);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SessionDBContext.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
-        return sessions;
+        return sessionstu;
     }
 
     public ArrayList<Session> filter(int lid, Date from, Date to) {
@@ -130,7 +154,7 @@ public class SessionDBContext extends dal.DBContext<Session> {
                 l.setName(rs.getString("lname"));
                 session.setLecturer(l);
 
-                g.setGid(rs.getInt("gid"));
+                g.setId(rs.getInt("gid"));
                 g.setName(rs.getString("gname"));
                 session.setGroup(g);
 
@@ -263,7 +287,7 @@ public class SessionDBContext extends dal.DBContext<Session> {
                     ses.setLecturer(l);
 
                     Group g = new Group();
-                    g.setGid(rs.getInt("gid"));
+                    g.setId(rs.getInt("gid"));
                     g.setName(rs.getString("gname"));
                     ses.setGroup(g);
 
@@ -297,7 +321,64 @@ public class SessionDBContext extends dal.DBContext<Session> {
 
     @Override
     public ArrayList<Session> list() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       
+       ArrayList<Session> sessions = new ArrayList<>();
+        try {
+            String sql = "SELECT  \n"
+                    + "                    ses.sesid,ses.[date],ses.[index],ses.attanded\n"
+                    + "                   ,l.lid,l.lname\n"
+                    + "                   ,g.gid,g.gname\n"
+                    + "                   ,sub.subid,sub.subname\n"
+                    + "                    ,r.rid,r.rname\n"
+                    + "                    ,t.tid,t.[description]\n"
+                    + "                    FROM [Session] ses \n"
+                    + "                  	INNER JOIN Lecturer l ON l.lid = ses.lid\n"
+                    + "                   	INNER JOIN [Group] g ON g.gid = ses.gid\n"
+                    + "                 	INNER JOIN [Subject] sub ON sub.subid = g.subid\n"
+                    + "                   	INNER JOIN Room r ON r.rid = ses.rid\n"
+                    + "                 	INNER JOIN TimeSlot t ON t.tid = ses.tid";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next())
+            {
+                Session session = new Session();
+                Lecturer l = new Lecturer();
+                Room r = new Room();
+                Group g = new Group();
+                TimeSlot t = new TimeSlot();
+                Subject sub = new Subject();
+                
+                session.setId(rs.getInt("sesid"));
+                session.setDate(rs.getDate("date"));
+                session.setIndex(rs.getInt("index"));
+                session.setAttandated(rs.getBoolean("attanded"));
+                
+                l.setId(rs.getInt("lid"));
+                l.setName(rs.getString("lname"));
+                session.setLecturer(l);
+                
+                g.setId(rs.getInt("gid"));
+                g.setName(rs.getString("gname"));
+                session.setGroup(g);
+                
+                sub.setId(rs.getInt("subid"));
+                sub.setName(rs.getString("subname"));
+                g.setSubject(sub);
+                
+                r.setId(rs.getInt("rid"));
+                r.setName(rs.getString("rname"));
+                session.setRoom(r);
+                
+                t.setId(rs.getInt("tid"));
+                t.setDescription(rs.getString("description"));
+                session.setTimeslot(t);
+                
+                sessions.add(session);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return sessions;  
     }
 
 }
