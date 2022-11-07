@@ -16,6 +16,12 @@
                 height: 100%;
             }
             body{
+                
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.42em;
+  color:#A7A1AE;
+  background-color:#1F2739;
                 margin: 0;
                 padding: 0;
             }

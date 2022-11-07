@@ -8,10 +8,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 <html>
     <head>
         <title>TODO supply a title</title>
-        
+        <link rel="stylesheet" href="css/listatts.css"/>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="list.css"/>
+        <link rel="stylesheet" href="listatts.css"/>
     </head>
     <body>
         
@@ -22,13 +22,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 Room: ${ses.room.name}
             </c:forEach>
 
-            <table class="table" border="1px">
+            <table class="container" border="1px">
                 <thead>
-                <tr class="thead">
+                <tr >
                     <th>No.</th>
                     <th>Group</th>
                     <th>Student ID</th>
                     <th>Full Name</th>
+                    
                     <c:forEach items="${requestScope.group.sessions}" var="ses" varStatus="loop">
                     <th> Slot ${loop.index+1} <br>
                    
@@ -36,13 +37,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                         </th>
                     </c:forEach>
                     <th>Absent</th>           
-                    <th>Count Present</th>
+                    
                 </tr>
-</thead>
+               </thead> 
+               <tbody>
                 <c:forEach items="${requestScope.group.students}" var="std" varStatus="loop"> 
                      
                     <tr>
-                        <c:set var="total" value="0"/>
+                        <c:set var="count" value="0"/>
                     <c:set var="absent" value="0"/>
                         <td>${loop.index+1}</td>
                         <td>${requestScope.group.id}</td>
@@ -50,28 +52,49 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                         <td>${std.name}</td> 
                         
                         <c:forEach items="${requestScope.group.sessions}" var="a">  
+                            <c:set var="count" value="${count+1}"/>
                             <c:forEach items="${a.attandances}" var="b">
                                 
                                 <c:if test="${b.student.id eq std.id}">
-                                    
+                                    <td>
+                                    <c:choose>
+                                         <c:when test="${b.present}">
+                                                <p style="color: green; font-weight: bold"> P </p>
+                                         </c:when>
+                                                
+                                                <c:when test="${!a.attandated}">
+                                                <p style="color: #6b90da; font-weight: bold">  Not yet </p>
+                                            </c:when> 
+                                            <c:when test="${!b.present}">
+                                                <p  style="color: red; font-weight: bold"> A </p>
+                                                 <c:set var="absent" value="${absent+1}"/>
+                                            </c:when>
+                                                
+                                    </c:choose>
+                                                </td>
                                 
-                                            <c:if test="${b.present}">
-                                                <td style="color: green"> P </td>
-                                            </c:if> 
-                                            <c:if test="${!b.present}">
-                                                <td  style="color: red"> A </td>
-                                            </c:if>   
+                                           
+                                                
                                                 
                                     </c:if>            
                             
                       </c:forEach>   
                                                 
-                                  </c:forEach>  
-                                    
+                                  </c:forEach> 
+                                        <th>
+                                                <c:if test="${absent/count <= 0.2}">
+                                       <p style="color:green"> ${absent/count*100}/100%</p>
+                                        </c:if>
+                                        <c:if test="${absent/count > 0.2}">
+                                        <p style="color:red"> ${absent/count*100}/100%</p>
+                                        </c:if>
+                                    </th>
                     </c:forEach>    
                                                 
-                </tr>   
+                </tr>
+                </tbody>
             </table>
+                
                 <c:forEach  items="${requestScope.group.sessions}" var="ses"  begin="0" end="0">
                 <a style="font-size: 20px" href="timetable?lid=${ses.lecturer.id}">Back</a>
                      </c:forEach>

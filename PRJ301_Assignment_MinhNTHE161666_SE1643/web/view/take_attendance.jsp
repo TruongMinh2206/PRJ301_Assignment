@@ -3,11 +3,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="helper" class="util.DateTimeHelper"/>
 <!DOCTYPE html>
 <html>
     <style>
+           body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.42em;
+  color:#A7A1AE;
+  background-color:#1F2739;
+
+}
         .thead{
-            background-color: #6b90da;
+            color: #A7A1AE;
+            background-color: #1F2739;
                 text-align: center;
         }
     </style>
@@ -39,6 +49,7 @@
                     <td>Absent</td>
                     <td>Description</td>
                     <td>taker</td>
+                    
                    
                 </tr>
                 <c:forEach items="${requestScope.ses.attandances}" var="a" varStatus="loop">
@@ -49,6 +60,7 @@
                     </td>
                     <td>${requestScope.ses.group.name}</td>
                     <td>${a.student.name}</td>
+                     <%--<c:if test="${(helper.getDateForAtt(a.session.date) >0) and (helper.getDateForAtt(a.session.date) <= 1)}">--%>
                     <td><input type="radio"
                                <c:if test="${a.present}">
                                checked="checked"
@@ -61,8 +73,22 @@
                                name="present${a.student.id}" value="absent" /></td>
                     <td><input type="text" name="description${a.student.id}" value="${a.description}" /></td>
                   <td>${requestScope.ses.lecturer.name}</td>
+
                 </tr>   
-                    
+                     <%--</c:if>--%>
+                <%--<c:if test="${helper.getDateForAtt(a.session.date) >=1}">--%>
+                    <!--<td style="color:green">-->
+                               <%--<c:if test="${a.present}">--%>
+                              <!--Present-->
+                                
+                    <!--<td style="color:red">-->
+                               <%--<c:if test="${!a.present}">--%>
+                               <!--Absent-->
+                               <%--</c:if>--%>
+                    <!--</td>-->
+                    <!--<td>${a.description}</td>-->
+                     <!--<td>${requestScope.ses.lecturer.name}</td>-->
+                    <%--</c:if>--%>
                 </c:forEach>
                 
             </table>

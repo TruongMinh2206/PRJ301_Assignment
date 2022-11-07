@@ -4,6 +4,8 @@
  */
 package model.assignment;
 
+import java.util.Date;
+
 
 public class Attendance {
     private int id;
@@ -11,6 +13,15 @@ public class Attendance {
     private Student student;
     private boolean present;
     private String description;
+    private Date record_time;
+
+    public Date getRecord_time() {
+        return record_time;
+    }
+
+    public void setRecord_time(Date record_time) {
+        this.record_time = record_time;
+    }
    
 
     public int getId() {
@@ -53,11 +64,6 @@ public class Attendance {
         this.description = description;
     }
 
-    private static class datetime {
-
-        public datetime() {
-            
-        }
-    }
+    
     
 }

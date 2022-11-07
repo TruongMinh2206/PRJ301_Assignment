@@ -11,11 +11,23 @@
     </head>
     
     <style>
+        body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 200;
+  line-height: 1.2em;
+  color:#A7A1AE;
+  background-color:#1F2739;
+
+}
         
         .nav{
-                background-color: #6b90da;
-                text-align: center;
+                font-weight: bold;
+    font-size: 1em;
+  text-align: left;
+  color: #185875;
+   
             }
+            
         
          .attended {
                 text-decoration: none;
@@ -34,7 +46,7 @@
             To: <input type="date" name="to" value="${requestScope.to}"/>
             <input type="submit" value="View"/> 
         </form>
-        <table border="1px">
+        <table class="container" border="1px">
             <tr class="nav">
                 <td> </td>
                 <c:forEach items="${requestScope.dates}" var="d">
@@ -49,10 +61,10 @@
                         <td>
                             <c:forEach items="${requestScope.sessions}" var="ses">
                                 <c:if test="${helper.compare(ses.date,d) eq 0 and (ses.timeslot.id eq slot.id)}">
-                                    <a class="ses" href="take_attendance?id=${ses.id}">${ses.group.name}-${ses.group.subject.name}</a>
+                                    <a class="ses" style="color:gray;" href="take_attendance?id=${ses.id}">${ses.group.name}-${ses.group.subject.name}</a>
                                     
                                     <br/>
-                                     <a href="list_attendance?gid=${ses.group.id}&lid=${ses.lecturer.id}&subid=${ses.group.subject.id}">List</a><
+                                     <a style="color:gray;" href="list_attendance?gid=${ses.group.id}&lid=${ses.lecturer.id}&subid=${ses.group.subject.id}">List</a>
                                     at ${ses.room.name}
                                     <c:if test="${ses.attandated}">
                                         <span class="attended"> (Attended)</span>
