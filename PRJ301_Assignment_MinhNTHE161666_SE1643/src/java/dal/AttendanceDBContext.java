@@ -12,41 +12,84 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.assignment.Attendance;
+import model.assignment.Group;
 import model.assignment.Lecturer;
+import model.assignment.Room;
 import model.assignment.Session;
 import model.assignment.Student;
+import model.assignment.Subject;
+import model.assignment.TimeSlot;
 
 public class AttendanceDBContext extends DBContext<Attendance> {
 
-    public ArrayList<Attendance> reportAttend(int gid) {
+    public ArrayList<Attendance> reportAttend(int stdid, Date from, Date to) {
         ArrayList<Attendance> atts = new ArrayList<>();
         try {
-            String sql = "SELECT S.stdid, S.stdname,SS.sesid, attanded,A.present\n"
-                    + "FROM Student S\n"
-                    + "       INNER JOIN Student_Group SG ON S.stdid = SG.stdid\n"
-                    + "       INNER JOIN [Group] G ON SG.gid = G.gid\n"
-                    + "       INNER JOIN [Session] SS ON SS.gid = G.gid\n"
-                    + "       LEFT JOIN Attandance A ON A.stdid = S.stdid AND SS.sesid = A.sesid\n"
-                    + "        WHERE G.gid = ?";
+            String sql = "SELECT \n"
+                    + "                    	ses.sesid,ses.[date],ses.[index],ses.attanded\n"
+                    + "						,S.stdid, S.stdname\n"
+                    + "						,L.lid, L.lname\n"
+                    + "                    	,g.gid,g.gname\n"
+                    + "                    	,sub.subid,sub.subname,numbOfSLot\n"
+                    + "                    	,r.rid,r.rname\n"
+                    + "                    	,t.tid,t.[description]\n"
+                    + "						,ISNULL(A.present,0) present\n"
+                    + "                    FROM [Session] ses\n"
+                    + "							INNER JOIN Lecturer L ON L.lid = SES.lid\n"
+                    + "                    		INNER JOIN [Group] g ON g.gid = ses.gid\n"
+                    + "							INNER JOIN Student_Group SG ON SG.gid = G.gid\n"
+                    + "							INNER JOIN Student S ON S.stdid = SG.stdid\n"
+                    + "                    			INNER JOIN [Subject] sub ON sub.subid = g.subid\n"
+                    + "                    			INNER JOIN Room r ON r.rid = ses.rid\n"
+                    + "                    			INNER JOIN TimeSlot t ON t.tid = ses.tid\n"
+                    + "								LEFT JOIN Attandance A ON A.sesid = SES.sesid AND A.stdid = S.stdid\n"
+                    + "                    WHERE\n"
+                    + "                    S.stdid = ?\n"
+                    + "                    AND ses.[date] >= ?\n"
+                    + "                   AND ses.[date] <= ?";
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, gid);
+             stm.setInt(1, stdid);
+            stm.setDate(2, from);
+            stm.setDate(3, to);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                Attendance att = new Attendance();
-                Student s = new Student();
-                Session ses = new Session();
+                Attendance a = new Attendance();
+                Session session = new Session();
+                Lecturer l = new Lecturer();
+                Room r = new Room();
+                Group g = new Group();
+                TimeSlot t = new TimeSlot();
+                Subject sub = new Subject();
 
-                s.setId(rs.getInt("stdid"));
-                s.setName(rs.getString("stdname"));
-                att.setStudent(s);
+                session.setId(rs.getInt("sesid"));
+                session.setDate(rs.getDate("date"));
+                session.setIndex(rs.getInt("index"));
+                session.setAttandated(rs.getBoolean("attanded"));
 
-                ses.setId(rs.getInt("sesid"));
-                ses.setAttandated(rs.getBoolean("attanded"));
-                att.setSession(ses);
+                l.setId(rs.getInt("lid"));
+                l.setName(rs.getString("lname"));
+                session.setLecturer(l);
 
-                att.setPresent(rs.getBoolean("present"));
+                g.setId(rs.getInt("gid"));
+                g.setName(rs.getString("gname"));
+                session.setGroup(g);
 
-                atts.add(att);
+                sub.setId(rs.getInt("subid"));
+                sub.setName(rs.getString("subname"));
+                sub.setNumOfSlot(rs.getInt("numOfSlot"));
+                g.setSubject(sub);
+
+                r.setId(rs.getInt("rid"));
+                r.setName(rs.getString("rname"));
+                session.setRoom(r);
+
+                t.setId(rs.getInt("tid"));
+                t.setDescription(rs.getString("description"));
+                session.setTimeslot(t);
+
+                a.setSession(session);
+                a.setPresent(rs.getBoolean("present"));
+                atts.add(a);
             }
         } catch (SQLException ex) {
             Logger.getLogger(LecturerDBContext.class.getName()).log(Level.SEVERE, null, ex);

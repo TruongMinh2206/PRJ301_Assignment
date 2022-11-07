@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="helper" class="util.DateTimeHelper"/>
 <!DOCTYPE html>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -7,6 +8,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 <html>
     <head>
         <title>TODO supply a title</title>
+        
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="list.css"/>
@@ -29,10 +31,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                     <th>Full Name</th>
                     <c:forEach items="${requestScope.group.sessions}" var="ses" varStatus="loop">
                     <th> Slot ${loop.index+1} <br>
-                           <fmt:formatDate value="${ses.date}" pattern="dd/MM/yyy"/>
+                   
+                           
                         </th>
                     </c:forEach>
-                    <th>Absent</th>                         
+                    <th>Absent</th>           
+                    <th>Count Present</th>
                 </tr>
 </thead>
                 <c:forEach items="${requestScope.group.students}" var="std" varStatus="loop"> 
@@ -42,40 +46,30 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                     <c:set var="absent" value="0"/>
                         <td>${loop.index+1}</td>
                         <td>${requestScope.group.id}</td>
-                        <td>${std.id}</td>
-                         <input type="hidden" name="stdid" value="${a.student.id}"/>
+                        <td>${std.id}</td>                
                         <td>${std.name}</td> 
-                        <!-- need a loop -->    
-                        <c:forEach items="${requestScope.sessions}" var="a">  
-                               <c:set var="total" value="${total+1}"/>
-                            <c:forEach items="${a.attandated}" var="b">               
+                        
+                        <c:forEach items="${requestScope.group.sessions}" var="a">  
+                            <c:forEach items="${a.attandances}" var="b">
+                                
                                 <c:if test="${b.student.id eq std.id}">
-                                    <td style="font-weight: bold">
-                                        <c:choose>
-                                            <c:when test="${b.present}">
-                                                <p style="color: green"> P </p>
-                                            </c:when> 
-                                            <c:when test="${!a.attandated}">
-                                                <p> Not yet </p>
-                                            </c:when> 
-                                            <c:otherwise>
-                                                <p  style="color: red"> A </p>
-                                                <c:set var="absent" value="${absent+1}"/>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
-                                </c:if>
-                            </c:forEach>
-                        </c:forEach>   
-                                    <c:if test="${absent/total <= 0.4}">
-                                       <td style="color:green"> ${absent/total*100}/100%</td>
-                                        </c:if>
-                                        <c:if test="${absent/total >= 0.6}">
-                                        <td style="color:red"> ${absent/total*100}/100%</td>
-                                        </c:if>
-                                       
+                                    
+                                
+                                            <c:if test="${b.present}">
+                                                <td style="color: green"> P </td>
+                                            </c:if> 
+                                            <c:if test="${!b.present}">
+                                                <td  style="color: red"> A </td>
+                                            </c:if>   
+                                                
+                                    </c:if>            
+                            
+                      </c:forEach>   
+                                                
+                                  </c:forEach>  
                                     
                     </c:forEach>    
+                                                
                 </tr>   
             </table>
                 <c:forEach  items="${requestScope.group.sessions}" var="ses"  begin="0" end="0">

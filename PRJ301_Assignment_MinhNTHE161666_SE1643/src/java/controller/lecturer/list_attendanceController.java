@@ -29,8 +29,16 @@ public class list_attendanceController extends BaseAuthorizationController{
           int gid = Integer.parseInt(req.getParameter("gid"));
         int lid = Integer.parseInt(req.getParameter("lid"));
         int subid = Integer.parseInt(req.getParameter("subid"));
+     
+        if(req.getParameter("sesid") != null){
+             int sesid = Integer.parseInt(req.getParameter("sesid"));
+            SessionDBContext sesdb = new SessionDBContext();
+            Session ses = sesdb.get(sesid);
+            req.setAttribute("ses", ses);
+        }
         GroupDBContext gdb = new GroupDBContext();
         Group group = gdb.listInGoups(gid, lid, subid);
+        
         req.setAttribute("group", group);
         req.getRequestDispatcher("/view/list_attendance.jsp").forward(req, resp);
     }
