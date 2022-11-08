@@ -60,7 +60,7 @@
                     </td>
                     <td>${requestScope.ses.group.name}</td>
                     <td>${a.student.name}</td>
-                     <%--<c:if test="${(helper.getDateForAtt(a.session.date) >0) and (helper.getDateForAtt(a.session.date) <= 1)}">--%>
+                     <c:if test="${(helper.getDateForAtt(a.session.date) >0) and (helper.getDateForAtt(a.session.date) <= 2)}">
                     <td><input type="radio"
                                <c:if test="${a.present}">
                                checked="checked"
@@ -75,20 +75,21 @@
                   <td>${requestScope.ses.lecturer.name}</td>
 
                 </tr>   
-                     <%--</c:if>--%>
-                <%--<c:if test="${helper.getDateForAtt(a.session.date) >=1}">--%>
-                    <!--<td style="color:green">-->
-                               <%--<c:if test="${a.present}">--%>
-                              <!--Present-->
-                                
-                    <!--<td style="color:red">-->
-                               <%--<c:if test="${!a.present}">--%>
-                               <!--Absent-->
-                               <%--</c:if>--%>
-                    <!--</td>-->
-                    <!--<td>${a.description}</td>-->
-                     <!--<td>${requestScope.ses.lecturer.name}</td>-->
-                    <%--</c:if>--%>
+                     </c:if>
+                <c:if test="${helper.getDateForAtt(a.session.date) >2}">
+                    <td style="color:green">
+                               <c:if test="${a.present}">
+                              Present
+                              </c:if>
+                                </td>
+                    <td style="color:red">
+                               <c:if test="${!a.present}">
+                               Absent
+                               </c:if>
+                    </td>
+                    <td>${a.description}</td>
+                     <td>${requestScope.ses.lecturer.name}</td>
+                    </c:if>
                 </c:forEach>
                 
             </table>

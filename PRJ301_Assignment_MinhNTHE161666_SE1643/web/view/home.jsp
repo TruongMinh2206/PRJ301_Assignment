@@ -102,7 +102,7 @@
                 </div>
                 
                 <a href="timetable?lid=${sessionScope.account.id}" >Time Table</a><br>
-                <a href="list_attendance?lid=${sessionScope.account.id}"> report attendance</a>
+             
             </div>
             
         </div>

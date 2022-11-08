@@ -100,12 +100,12 @@ public class DateTimeHelper {
          System.out.println(a + " " + b +" " +e_a.compareTo(e_b));
         return e_a.compareTo(e_b);
     }
-//     public static float getDateForAtt(java.sql.Date dateatts)
-//    {
-//        java.util.Date da = new java.util.Date(dateatts.getTime());
-//        java.util.Date dcurrent = new java.util.Date();
-//        long dfa = dcurrent.getTime() - da.getTime();
-//        return ((float)dfa / (1000*60*60*24));
-//    }
+     public static float getDateForAtt(java.sql.Date dateatts)
+    {
+        java.util.Date da = new java.util.Date(dateatts.getTime());
+        java.util.Date dcurrent = new java.util.Date();
+        long dfa = dcurrent.getTime() - da.getTime();
+        return ((float)dfa / (1000*60*60*24));
+    }
 
 }

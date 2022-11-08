@@ -44,16 +44,19 @@ body {
 
 /* Background-color of the odd rows */
 .container tr:nth-child(odd) {
+    text-align:center;
     background-color: #323C50;
 }
 
 /* Background-color of the even rows */
 .container tr:nth-child(even) {
     background-color: #2C3446;
+     text-align:center;
 }
 
 .container th {
     background-color: #1F2739;
+     text-align:center;
 }
 
 .container td:first-child { color: #FB667A; }

@@ -39,12 +39,12 @@
             }
     </style>
     <body>
-        Lecturer: <input type="text" readonly="readonly" value="${requestScope.lecturer.name}"/>
+        Lecturer: <input type="text" style="background-color: graytext; font-weight: bold" readonly="readonly" value="${requestScope.lecturer.name}"/>
         <form action="timetable" method="GET">
             <input type="hidden" name="lid" value="${param.lid}"/>
-            From: <input type="date" name="from" value="${requestScope.from}"/>
-            To: <input type="date" name="to" value="${requestScope.to}"/>
-            <input type="submit" value="View"/> 
+            From: <input type="date" style="background-color: graytext; font-weight: bold" name="from" value="${requestScope.from}"/>
+            To: <input type="date" style="background-color: graytext; font-weight: bold" name="to" value="${requestScope.to}"/>
+            <input type="submit" style="background-color: graytext; font-weight: bold" value="View"/> 
         </form>
         <table class="container" border="1px">
             <tr class="nav">
@@ -64,7 +64,7 @@
                                     <a class="ses" style="color:gray;" href="take_attendance?id=${ses.id}">${ses.group.name}-${ses.group.subject.name}</a>
                                     
                                     <br/>
-                                     <a style="color:gray;" href="list_attendance?gid=${ses.group.id}&lid=${ses.lecturer.id}&subid=${ses.group.subject.id}">List</a>
+                                     <a style="color:#185875; font-weight: bold" href="list_attendance?gid=${ses.group.id}&lid=${ses.lecturer.id}&subid=${ses.group.subject.id}">List</a>
                                     at ${ses.room.name}
                                     <c:if test="${ses.attandated}">
                                         <span class="attended"> (Attended)</span>
