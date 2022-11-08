@@ -66,7 +66,7 @@ public class TimetableController extends BaseAuthorizationController {
         request.setAttribute("sessions", sessions);
         
         LecturerDBContext lecDB = new LecturerDBContext();
-        Lecturer lecturer = lecDB.get(lid);
+        Lecturer lecturer = lecDB.getInforSes(lid);
         request.setAttribute("lecturer", lecturer);
         
         request.getRequestDispatcher("/view/tabletime.jsp").forward(request, response);

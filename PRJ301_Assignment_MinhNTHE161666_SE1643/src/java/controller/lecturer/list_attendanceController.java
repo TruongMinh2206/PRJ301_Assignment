@@ -33,7 +33,7 @@ public class list_attendanceController extends BaseAuthorizationController{
         if(req.getParameter("sesid") != null){
              int sesid = Integer.parseInt(req.getParameter("sesid"));
             SessionDBContext sesdb = new SessionDBContext();
-            Session ses = sesdb.get(sesid);
+            Session ses = sesdb.getInforSes(sesid);
             req.setAttribute("ses", ses);
         }
         GroupDBContext gdb = new GroupDBContext();

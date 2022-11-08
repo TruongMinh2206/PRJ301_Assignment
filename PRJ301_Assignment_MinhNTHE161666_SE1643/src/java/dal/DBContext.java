@@ -31,6 +31,6 @@ public abstract class DBContext<T> {
     public abstract void insert(T model); //INSERT INTO
     public abstract void update(T model); // UPDATE SET
     public abstract void delete(T model); // DELETE FROM 
-    public abstract T get(int id); // SELECT * FROM WHERE id = 
+    public abstract T getInforSes(int id); // SELECT * FROM WHERE id = 
     public abstract ArrayList<T> list(); //override SELECT * FROM
 }

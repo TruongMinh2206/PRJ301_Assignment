@@ -43,7 +43,7 @@ public class GroupDBContext extends dal.DBContext<Group> {
             ArrayList<Session> sessions = new ArrayList<>();
             while (rs.next()) {
                 SessionDBContext sesDB = new SessionDBContext();
-                Session session = sesDB.get(rs.getInt("sesid"));
+                Session session = sesDB.getInforSes(rs.getInt("sesid"));
                 sessions.add(session);
             }
             group.setSessions(sessions);
@@ -81,7 +81,7 @@ public class GroupDBContext extends dal.DBContext<Group> {
     }
 
     @Override
-    public Group get(int id) {
+    public Group getInforSes(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

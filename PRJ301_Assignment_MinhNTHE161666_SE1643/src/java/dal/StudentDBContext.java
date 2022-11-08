@@ -62,7 +62,7 @@ public class StudentDBContext extends DBContext<Student>{
     }
 
     @Override
-    public Student get(int id) {
+    public Student getInforSes(int id) {
          try {
             String sql = "SELECT stdid,stdname FROM Student WHERE stdid = ?";
             PreparedStatement stm = connection.prepareStatement(sql);

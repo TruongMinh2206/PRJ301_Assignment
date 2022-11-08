@@ -29,7 +29,7 @@ public class SubjectDBContext extends DBContext<Subject>{
     }
 
     @Override
-    public Subject get(int id) {
+    public Subject getInforSes(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

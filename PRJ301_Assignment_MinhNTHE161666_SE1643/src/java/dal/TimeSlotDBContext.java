@@ -32,7 +32,7 @@ public class TimeSlotDBContext extends DBContext<TimeSlot> {
     }
 
     @Override
-    public TimeSlot get(int id) {
+    public TimeSlot getInforSes(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

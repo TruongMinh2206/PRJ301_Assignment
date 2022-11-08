@@ -56,7 +56,7 @@ public class AccountDBContext extends DBContext<Account> {
     }
 
     @Override
-    public Account get(int id) {
+    public Account getInforSes(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

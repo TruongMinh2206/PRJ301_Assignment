@@ -113,7 +113,7 @@ public class AttendanceDBContext extends DBContext<Attendance> {
     }
 
     @Override
-    public Attendance get(int id) {
+    public Attendance getInforSes(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

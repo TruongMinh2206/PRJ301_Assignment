@@ -244,7 +244,7 @@ public class SessionDBContext extends dal.DBContext<Session> {
     }
 
     @Override
-    public Session get(int id) {
+    public Session getInforSes(int id) {
         try {
             String sql = "SELECT ses.sesid,ses.[index],ses.date,ses.attanded\n"
                     + "	,g.gid,g.gname\n"

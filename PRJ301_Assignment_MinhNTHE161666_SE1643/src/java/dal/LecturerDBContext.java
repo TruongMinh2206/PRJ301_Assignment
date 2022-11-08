@@ -34,7 +34,7 @@ public class LecturerDBContext extends dal.DBContext<Lecturer> {
     }
 
     @Override
-    public Lecturer get(int lid) {
+    public Lecturer getInforSes(int lid) {
         try {
             String sql = "SELECT lid,lname FROM Lecturer WHERE lid = ?";
             PreparedStatement stm = connection.prepareStatement(sql);

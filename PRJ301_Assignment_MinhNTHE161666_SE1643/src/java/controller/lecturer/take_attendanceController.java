@@ -54,7 +54,7 @@ public class take_attendanceController extends BaseAuthorizationController {
       
          int sesid = Integer.parseInt(request.getParameter("id"));
         SessionDBContext sesDB = new SessionDBContext();
-        Session ses = sesDB.get(sesid);
+        Session ses = sesDB.getInforSes(sesid);
         request.setAttribute("ses", ses);
         request.getRequestDispatcher("/view/take_attendance.jsp").forward(request, response);
     }
